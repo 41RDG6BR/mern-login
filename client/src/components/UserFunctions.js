@@ -1,8 +1,8 @@
 import axios from 'axios'
-
+const baseUrl = 'http://localhost:5000/'
 export const register = newUser=>{
     return axios
-        .post('users/register', {
+        .post(baseUrl + 'users/register', {
             first_name: newUser.first_name,
             last_name: newUser.last_name,
             email: newUser.email,
@@ -15,16 +15,17 @@ export const register = newUser=>{
 
 export const login = user =>{
     return axios
-    .post('users/login', {
-        email: user.email,
-        password: user.password
-    })
-    .then(res =>{
-        localStorage.setItem('userToken', res.data)
-        return res.data
-    })
-    .catch(err =>{
-        console.log(err)
-    })
+        .post(baseUrl + 'users/login', {
+            email: user.email,
+            password: user.password
+        })
+        .then(res =>{
+            console.log('token', res.data)
+            localStorage.setItem('userToken', res.data)
+            return res.data
+        })
+        .catch(err =>{
+            console.log(err)
+        })
 
 }
